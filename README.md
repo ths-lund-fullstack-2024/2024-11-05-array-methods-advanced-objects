@@ -134,9 +134,190 @@ In this example, `this` is used to refer to the object itself, it's own properti
 
 ## Manipulating Objects
 
+Objects are not locked or anything when we create them, they are very open for editing throughout our program.
+
 ### Accessing properties and methods
 
+Accessing properties in an object can be done in three ways.
+
+This first one is to use a period, it's commonly dot-notation.
+
+```js
+const car = {
+  make: "Volvo",
+  model: "V70",
+  year: 2016,
+  manualTransmission: true,
+  start: function () {
+    console.log("The car has started");
+  },
+};
+
+// accessing the model property with dot-notation
+console.log(car.model); // V70
+
+// We can also store the value in a variable.
+const modelOfCar = car.model;
+console.log(modelOfCar); // V70
+```
+
+To access a method we can also use dot-notation but we also need to invoke the method.
+
+```js
+car.start(); // Will log "The car has started"
+```
+
+The second way is to use an array-like-syntax, using square brackets.
+
+```js
+console.log(car["make"]); // Volvo
+
+// again, we also save to a variable
+const carMake = car["make"];
+console.log(carMake); // Volvo
+```
+
+It's important to use a string value inside the square braekts otherwise it won't work. The string must also be equal to an actual property of the given object.
+
+If we don't use a string value, the it will look for an actual variable that is defined in the same scope, if that's not the case, or if the variable is of another type than string, it will be undefined.
+
+```js
+const carEngine = car["engine"];
+console.log(carEngine); // undefined, since there is no key with that name inside the car object.
+
+const carEngine = car[engine];
+// won't work as well, since we are looking for a defined variable inside the scope, which we don't have.
+```
+
+The third way is to use something that is called "object destructuring".
+
+```js
+const car = {
+  make: "Volvo",
+  model: "V70",
+  year: 2016,
+  manualTransmission: true,
+  start: function () {
+    console.log("The car has started");
+  },
+};
+
+const { make, model } = car;
+
+console.log(make); // Volvo
+console.log(model); // V70
+```
+
+We need to be careful here when destructuring. The typing of the properties that we want to destruct must be an exact match to the ones inside the object.
+
+We could rename to variables if we want to:
+
+```js
+const { model: version, year: created } = car;
+
+console.log(version); // V70
+console.log(created); // 2016
+```
+
+This is useful when there is already an existing variable in the scope of the same name as one of the properties we want to destruct.
+
+Accessing methods works the same way, you can use either of the three ways, just remember to invoke the method if you want to run it.
+
 [Back to top](#javascript-objects)
+
+### Updating properties
+
+Updating properties is done in the same, use dot-notation or square brackets, rememeber to also use the assignment operator `=`.
+
+```js
+const car = {
+  make: "Volvo",
+  model: "V70",
+  year: 2016,
+  manualTransmission: true,
+  start: function () {
+    console.log("The car has started");
+  },
+};
+
+car.make = "Saab";
+car["year"] = 2020;
+
+console.log(car.make); // Saab
+console.log(car.year); // 2020
+```
+
+If you try and "update" something that doesn't exists. For instance, you might have spelled a property wrong, you will instead create a new property with that name and value.
+
+```js
+car.Make = "BMW";
+
+console.log(make);
+("Saab");
+console.log(Make);
+("BMW");
+
+console.log(car);
+```
+
+This shows us that we can simply create ned attributs inside our object by just dot-notating a new attribute and give it some value. Although this works, it's not considered good practise so try and avoid it.
+
+### Removing properties and methods.
+
+removing stuff from an object is easy. There is a keyword for it, `delete`, that we kan use whenever we feel like it. This is also considered bad practise so try and avoid it.
+
+```js
+const person = {
+  firstName: "Niklas",
+  lastName: "Fähnrich",
+};
+
+delete person.firstName;
+
+console.log(persone); // firstName is removed.
+```
+
+[Back to top](#javascript-objects)
+
+### Looping through an object
+
+use case: when you want to iterate over the properties of an object, you use a for..in-loop. Almost identical to a for..of-loop but with using a different keyword in the middle.
+
+```js
+for (const key in object) {
+  // Code to execute in each iteration.
+}
+```
+
+Example with the car
+
+```js
+const car = {
+  make: "Volvo",
+  model: "V70",
+  year: 2016,
+  manualTransmission: true,
+  start: function () {
+    console.log("The car has started");
+  },
+};
+
+for (const key in car) {
+  console.log(key); // Will log the key.
+}
+```
+
+This will just log out the different keys of the object. If we want the value of each key we do like this:
+
+```js
+for (const key in car) {
+  const value = car[key];
+  // console.log(`${key}: ${value}`);
+  console.log(key + ": " + value);
+}
+```
+
+Dot-notation doesn't work in this case and that is because `key` here is a dynamic value that changes in every iteration, and the value is the actual string value of the given key that is currently iterated over. When we use dot-notation, it looks for a property in a literal sense, which means the property `key` must exist on the object which it doesn't. 
 
 ## Object Methods
 
