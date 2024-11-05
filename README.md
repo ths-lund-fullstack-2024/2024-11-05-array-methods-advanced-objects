@@ -317,7 +317,7 @@ for (const key in car) {
 }
 ```
 
-Dot-notation doesn't work in this case and that is because `key` here is a dynamic value that changes in every iteration, and the value is the actual string value of the given key that is currently iterated over. When we use dot-notation, it looks for a property in a literal sense, which means the property `key` must exist on the object which it doesn't. 
+Dot-notation doesn't work in this case and that is because `key` here is a dynamic value that changes in every iteration, and the value is the actual string value of the given key that is currently iterated over. When we use dot-notation, it looks for a property in a literal sense, which means the property `key` must exist on the object which it doesn't. Hence we must use the array-like-syntax.
 
 ## Object Methods
 
