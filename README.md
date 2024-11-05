@@ -47,17 +47,88 @@ In JavaScript objects works in the same way. It has properties and methods. We h
 
 ### Create Object
 
+How do we create objects? It's ather easy, we need a variable nad we need a variable name. When we assign something we don't assign a value directly but we use a pair of curly brackets instead, and later we can populate it with data.
+
+```js
+const someObject = {};
+```
+
+This is an empty object. Best practise is to use `const` when declaring an object. Object are, like arrays, passed by reference, which means the variable is just a reference _( pointer )_ to the place on the hard drive where the actual data is stored.
+
 [Back to top](#javascript-objects)
 
 ### Properties
+
+Let's create a car instead, and fill it with some data:
+
+```js
+const car = {
+  make: "Volvo",
+  model: "V70",
+  year: 2016,
+  manualTransmission: true,
+};
+```
+
+This car represents an object, and it has four properties. Each property represents some sort of information regarding the car. As you can see, the properties can have differnt data types and the structure comes in key-value-pairs. Keys to the left, and values to the right. Every property is seperated with a comma.
 
 [Back to top](#javascript-objects)
 
 ### Custom Methods
 
+An object can also have methods that represents some sort of action that the object can do. Methods are in reality just functions but as soon as a function is conntected to a specific object it becomes a method.
+
+```js
+const car = {
+  make: "Volvo",
+  model: "V70",
+  year: 2016,
+  manualTransmission: true,
+  start: function () {
+    console.log("The car has started");
+  },
+  changeGear: () => {
+    console.log("Gear has been changed");
+  },
+};
+```
+
 [Back to top](#javascript-objects)
 
 ### "this" scope
+
+`this` is keyword that refers to an object in JavaScript but what it is depends on the current context in which the `this` is used.
+
+Different contexts:
+
+- Alone, `this` refers to the global window object
+
+- In "use strict" - mode, `this` would be undefined
+
+- **In an object, `this` refers to the object itself**
+
+- In a function `this` refers to the global object, unless it is created in another context.
+
+- ...some other contexts as well
+
+See this link for more detailed info: [w3schools - this](https://www.w3schools.com/js/js_this.asp)
+
+The third context above is the one we are interested in.
+
+```js
+const person = {
+  firstName: "Niklas",
+  lastName: "Fähnrich",
+  fullName: function () {
+    const fullName = firstName + lastName;
+    console.log(fullName);
+  },
+};
+
+person.fullName();
+```
+
+In this example, `this` is used to refer to the object itself, it's own properties. If we don't use `this` inside the function's scope the function will look for the variables inside it's own scope, and since we don't have any definitions of the variables inside the function we will get a reference error. If the function doesn't find a definition of the varaible in its own scope it will look in the parent scope, which is outside of the object in this case.
 
 [Back to top](#javascript-objects)
 
@@ -100,6 +171,8 @@ This is basically different functions that are connected to objects in JavaScrip
 [Back to top](#javascript-objects)
 
 ### Object.isSealed ( object ) => boolean
+
+[Back to top](#javascript-objects)
 
 ### Spread syntax
 
